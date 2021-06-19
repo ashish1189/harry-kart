@@ -2,10 +2,7 @@ package se.atg.service.harrykart.java;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -41,6 +38,7 @@ public class HarryKartAppTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("The application doesn't know how to play yet")
     void cantPlayYet() {
         given()
