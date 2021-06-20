@@ -3,3 +3,6 @@ server:
   error:
     include-message: always
     include-binding-errors: always
+logging:
+  level:
+    se.atg.service: INFO

@@ -117,11 +117,31 @@ public class HarryKartServiceImpl implements HarryKartService {
     @NotNull
     private List<Ranking> getRankings(Map<Integer, Participant> standings) {
         List<Ranking> rankings = new ArrayList<>();
+        Participant participant = null;
+        int position = 0;
         for (var entry : standings.entrySet()) {
-            var ranking = new Ranking(rankings.size() + 1, standings.get(entry.getKey()).getName());
-            rankings.add(ranking);
-            if (rankings.size() == 3)
+            if (participant == null) {
+                participant = entry.getValue();
+                Ranking ranking = new Ranking(++position, participant.getName());
+                rankings.add(ranking);
+                continue;
+            }
+
+            if (participant.getLapTime().equals(entry.getValue().getLapTime())) {
+                participant = entry.getValue();
+                Ranking ranking = new Ranking(position, participant.getName());
+                rankings.add(ranking);
+                continue;
+            }
+
+            ++position;
+
+            if (position > 3)
                 break;
+
+            participant = entry.getValue();
+            Ranking ranking = new Ranking(position, participant.getName());
+            rankings.add(ranking);
         }
         return rankings;
     }
