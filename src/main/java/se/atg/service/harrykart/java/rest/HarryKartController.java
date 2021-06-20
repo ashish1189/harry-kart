@@ -2,6 +2,7 @@ package se.atg.service.harrykart.java.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import se.atg.service.harrykart.java.rest.data.HarryKart;
 import se.atg.service.harrykart.java.rest.data.HarryKartResponse;
 import se.atg.service.harrykart.java.rest.service.HarryKartService;
 
+@Slf4j
 @RestController
 @RequestMapping("/java/api")
 @Api(value = "Harry kart racing game service")
@@ -29,8 +31,10 @@ public class HarryKartController {
         response = HarryKartResponse.class)
     public ResponseEntity<HarryKartResponse> playHarryKart(@RequestBody HarryKart harryKart) {
 
+        log.info("Starting harry kart race for the participants provided");
         var response = harryKartService.playHarryKartRace(harryKart);
 
+        log.info("Returning success response from harry-kart service");
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

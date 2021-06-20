@@ -1,5 +1,6 @@
 package se.atg.service.harrykart.java.rest.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
@@ -20,32 +21,48 @@ import static java.util.Map.Entry.comparingByValue;
 import static java.util.stream.Collectors.toMap;
 import static se.atg.service.harrykart.java.rest.utils.Constants.TRACK_LENGTH;
 
+@Slf4j
 @Service
 @RequestScope
 public class HarryKartServiceImpl implements HarryKartService {
     @Override
     public HarryKartResponse playHarryKartRace(HarryKart harryKart) {
+        log.info("Inside play harry-kart service");
+
+        log.debug("Validating input for required data to compute the race.");
         validateHarryKartRequest(harryKart);
+        log.debug("Input validation successful.");
 
+        log.debug("Evaluating the standings by running all the loops/laps.");
         var standings = getStandings(harryKart);
-        var rankings = getRankings(standings);
+        log.debug("Ordered standings for the harry-kart race - {} ", standings);
 
+        log.debug("Populating service response");
+        var rankings = getRankings(standings);
+        log.debug("Response - {} ", rankings);
+
+        log.info("Returning harry-kart service response.");
         return new HarryKartResponse(rankings);
     }
 
     private void validateHarryKartRequest(HarryKart harryKart) {
+        log.debug("Checking for starter list in the input");
         if (null == harryKart.getStartList()) {
             throw new EmptyStartListException("Mandatory starter list not provided for the race.");
         }
 
+        log.debug("Validating participants for the race.");
         if (null == harryKart.getStartList().getParticipant() || harryKart.getStartList().getParticipant().isEmpty()) {
             throw new NoRaceParticipantsException("No starter participants provided for the race.");
         }
 
+        log.debug("Validating if at least 4 participants are running the race");
         if (harryKart.getStartList().getParticipant().size() < 4) {
             throw new NotEnoughParticipants("Not enough participants for the race. At least 4 should participate.");
         }
+        log.debug("Starter list validation successful");
 
+        log.debug("Validating if sufficient Lap information is provided to compuete the results");
         int count = (harryKart.getStartList().getParticipant().isEmpty() ? 0 : 1) + harryKart.getPowerUps().getLoop().size();
         if (harryKart.getNumberOfLoops() != count) {
             throw new InsufficientRaceLapData("Insufficient laps information available to play and determine the positions.");
@@ -57,10 +74,12 @@ public class HarryKartServiceImpl implements HarryKartService {
                 throw new InsufficientRaceLapData("Insufficient laps information available to play and determine the positions.");
             }
         }
+        log.debug("Lap information validation successful.");
     }
 
     @NotNull
     private Map<Integer, Participant> getStandings(HarryKart harryKart) {
+        log.debug("Evaluating base standings after running first lap.");
         var standings =
                 harryKart
                         .getStartList()
@@ -68,9 +87,13 @@ public class HarryKartServiceImpl implements HarryKartService {
                         .stream()
                         .collect(toMap(Participant::getLane, p -> new Participant(p.getLane(), p.getName(),
                                 p.getBaseSpeed(), TRACK_LENGTH / p.getBaseSpeed())));
+        log.debug("Standings after running the first lap - {} ", standings);
 
+        log.debug("Running rest of the laps/loops");
         runRaceLoops(harryKart, standings);
+        log.debug("Standings after running all the laps - {} ", standings);
 
+        log.debug("Returning standings by sorting in ascending order of total lap time.");
         return standings
                 .entrySet()
                 .stream()
