@@ -10,5 +10,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PowerUps {
-    private List<Loop> loop;
+    private List<Loop> loops;
 }

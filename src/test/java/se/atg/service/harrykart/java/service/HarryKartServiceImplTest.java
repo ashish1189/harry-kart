@@ -48,7 +48,7 @@ public class HarryKartServiceImplTest {
     @DisplayName("No or Empty participants list")
     void testNoParticipantsFound() {
         var harryKart = MockDataUtils.getHarryKart().get(1);
-        harryKart.getStartList().setParticipant(null);
+        harryKart.getStartList().setParticipants(null);
 
         assertThrows(NoRaceParticipantsException.class, () -> {
             harryKartService.playHarryKartRace(harryKart);
@@ -70,7 +70,7 @@ public class HarryKartServiceImplTest {
     @DisplayName("Less than 4 participants for the race")
     void testNotEnoughParticipants() {
         var harryKart = MockDataUtils.getHarryKart().get(1);
-        harryKart.getStartList().getParticipant().remove(3);
+        harryKart.getStartList().getParticipants().remove(3);
 
         assertThrows(NotEnoughParticipants.class, () -> {
             harryKartService.playHarryKartRace(harryKart);

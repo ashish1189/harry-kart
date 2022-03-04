@@ -10,5 +10,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StartList {
-    List<Participant> participant;
+    List<Participant> participants;
 }
