@@ -1,5 +1,6 @@
-package se.atg.service.harrykart.java.rest.data;
+package se.atg.service.harrykart.java.data;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Participant {
+    @JacksonXmlProperty
     private Integer lane;
+    @JacksonXmlProperty
     private String name;
+    @JacksonXmlProperty
     private Double baseSpeed;
 
-    private Double lapTime;
+    private Double lapTime = 0.0;
 }

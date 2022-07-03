@@ -1,11 +1,11 @@
-package se.atg.service.harrykart.java.rest.exception;
+package se.atg.service.harrykart.java.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class EmptyStartListException extends RuntimeException{
-    public EmptyStartListException(String message) {
+public class NotEnoughParticipants extends RuntimeException {
+    public NotEnoughParticipants(String message) {
         super(message);
     }
 }

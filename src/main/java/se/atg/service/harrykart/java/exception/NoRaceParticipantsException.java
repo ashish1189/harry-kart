@@ -1,4 +1,4 @@
-package se.atg.service.harrykart.java.rest.exception;
+package se.atg.service.harrykart.java.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

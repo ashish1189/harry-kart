@@ -6,20 +6,22 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import se.atg.service.harrykart.java.rest.data.HarryKartResponse;
+import se.atg.service.harrykart.java.data.HarryKartResponse;
 import se.atg.service.harrykart.java.utils.MockDataUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.http.MediaType.ALL_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HarryKartControllerTest {
+class HarryKartControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -33,15 +35,15 @@ public class HarryKartControllerTest {
         String requestBody = MockDataUtils.getHarryKartRace1();
 
         MvcResult mvcResult = mockMvc.perform(post("/java/api/play")
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_XML_VALUE)
-                .accept(MediaType.ALL_VALUE))
+                        .content(requestBody)
+                        .contentType(APPLICATION_XML_VALUE)
+                        .accept(ALL_VALUE))
                 .andExpect(status().isCreated())
                 .andReturn();
 
         assertEquals(201, mvcResult.getResponse().getStatus());
         assertNotNull(mvcResult.getResponse().getContentAsString());
-        assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
+        assertEquals(APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
     }
 
     @Test
@@ -50,9 +52,9 @@ public class HarryKartControllerTest {
         String requestBody = MockDataUtils.getHarryKartRace1();
 
         MvcResult mvcResult = mockMvc.perform(post("/java/api/play")
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_XML_VALUE)
-                .accept(MediaType.ALL_VALUE))
+                        .content(requestBody)
+                        .contentType(APPLICATION_XML_VALUE)
+                        .accept(ALL_VALUE))
                 .andExpect(status().isCreated())
                 .andReturn();
 
@@ -70,9 +72,9 @@ public class HarryKartControllerTest {
         String requestBody = MockDataUtils.getHarryKartRace2();
 
         MvcResult mvcResult = mockMvc.perform(post("/java/api/play")
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_XML_VALUE)
-                .accept(MediaType.ALL_VALUE))
+                        .content(requestBody)
+                        .contentType(APPLICATION_XML_VALUE)
+                        .accept(ALL_VALUE))
                 .andExpect(status().isBadRequest())
                 .andReturn();
 
@@ -85,9 +87,9 @@ public class HarryKartControllerTest {
         String requestBody = MockDataUtils.getHarryKartRace3();
 
         MvcResult mvcResult = mockMvc.perform(post("/java/api/play")
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_XML_VALUE)
-                .accept(MediaType.ALL_VALUE))
+                        .content(requestBody)
+                        .contentType(APPLICATION_XML_VALUE)
+                        .accept(ALL_VALUE))
                 .andExpect(status().isBadRequest())
                 .andReturn();
 
@@ -100,9 +102,9 @@ public class HarryKartControllerTest {
         String requestBody = MockDataUtils.getHarryKartRace4();
 
         MvcResult mvcResult = mockMvc.perform(post("/java/api/play")
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_XML_VALUE)
-                .accept(MediaType.ALL_VALUE))
+                        .content(requestBody)
+                        .contentType(APPLICATION_XML_VALUE)
+                        .accept(ALL_VALUE))
                 .andExpect(status().isBadRequest())
                 .andReturn();
 

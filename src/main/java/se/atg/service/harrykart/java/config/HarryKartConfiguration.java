@@ -1,4 +1,4 @@
-package se.atg.service.harrykart.java.rest.config;
+package se.atg.service.harrykart.java.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +11,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
+
+import static se.atg.service.harrykart.java.utils.Constants.TERMS_URL;
 
 @Configuration
 @EnableSwagger2
@@ -31,10 +33,10 @@ public class HarryKartConfiguration {
                 "Harry Kart Racing Service",
                 "Harry Kart horse racing game service.",
                 "1.0",
-                "https://www.atg.se/en/",
-                new Contact("Team ATG", "https://www.atg.se/en/", "someMail@atg.se"),
+                TERMS_URL,
+                new Contact("Team ATG", TERMS_URL, "someMail@atg.se"),
                 "ATG SE License",
-                "https://www.atg.se/en/",
+                TERMS_URL,
                 Collections.emptyList()
         );
     }

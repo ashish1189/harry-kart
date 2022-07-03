@@ -1,6 +1,11 @@
 package se.atg.service.harrykart.java.utils;
 
-import se.atg.service.harrykart.java.rest.data.*;
+import se.atg.service.harrykart.java.data.HarryKart;
+import se.atg.service.harrykart.java.data.Lane;
+import se.atg.service.harrykart.java.data.Loop;
+import se.atg.service.harrykart.java.data.Participant;
+import se.atg.service.harrykart.java.data.PowerUps;
+import se.atg.service.harrykart.java.data.StartList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,143 +80,149 @@ public class MockDataUtils {
     }
 
     public static String getHarryKartRace1() {
-        return "<harryKart>\n" +
-                "    <numberOfLoops>3</numberOfLoops>\n" +
-                "    <startList>\n" +
-                "        <participant>\n" +
-                "            <lane>1</lane>\n" +
-                "            <name>TIMETOBELUCKY</name>\n" +
-                "            <baseSpeed>10</baseSpeed>\n" +
-                "        </participant>\n" +
-                "        <participant>\n" +
-                "            <lane>2</lane>\n" +
-                "            <name>CARGO DOOR</name>\n" +
-                "            <baseSpeed>10</baseSpeed>\n" +
-                "        </participant>\n" +
-                "        <participant>\n" +
-                "            <lane>3</lane>\n" +
-                "            <name>HERCULES BOKO</name>\n" +
-                "            <baseSpeed>10</baseSpeed>\n" +
-                "        </participant>\n" +
-                "        <participant>\n" +
-                "            <lane>4</lane>\n" +
-                "            <name>WAIKIKI SILVIO</name>\n" +
-                "            <baseSpeed>10</baseSpeed>\n" +
-                "        </participant>\n" +
-                "    </startList>\n" +
-                "    <powerUps>\n" +
-                "        <loop number=\"1\">\n" +
-                "            <lane number=\"1\">1</lane>\n" +
-                "            <lane number=\"2\">1</lane>\n" +
-                "            <lane number=\"3\">0</lane>\n" +
-                "            <lane number=\"4\">-2</lane>\n" +
-                "        </loop>\n" +
-                "        <loop number=\"2\">\n" +
-                "            <lane number=\"1\">1</lane>\n" +
-                "            <lane number=\"2\">-1</lane>\n" +
-                "            <lane number=\"3\">2</lane>\n" +
-                "            <lane number=\"4\">-2</lane>\n" +
-                "        </loop>\n" +
-                "    </powerUps>\n" +
-                "</harryKart>";
+        return """
+                <harryKart>
+                    <numberOfLoops>3</numberOfLoops>
+                    <startList>
+                        <participant>
+                            <lane>1</lane>
+                            <name>TIMETOBELUCKY</name>
+                            <baseSpeed>10</baseSpeed>
+                        </participant>
+                        <participant>
+                            <lane>2</lane>
+                            <name>CARGO DOOR</name>
+                            <baseSpeed>10</baseSpeed>
+                        </participant>
+                        <participant>
+                            <lane>3</lane>
+                            <name>HERCULES BOKO</name>
+                            <baseSpeed>10</baseSpeed>
+                        </participant>
+                        <participant>
+                            <lane>4</lane>
+                            <name>WAIKIKI SILVIO</name>
+                            <baseSpeed>10</baseSpeed>
+                        </participant>
+                    </startList>
+                    <powerUps>
+                        <loop number="1">
+                            <lane number="1">1</lane>
+                            <lane number="2">1</lane>
+                            <lane number="3">0</lane>
+                            <lane number="4">-2</lane>
+                        </loop>
+                        <loop number="2">
+                            <lane number="1">1</lane>
+                            <lane number="2">-1</lane>
+                            <lane number="3">2</lane>
+                            <lane number="4">-2</lane>
+                        </loop>
+                    </powerUps>
+                </harryKart>""";
     }
 
     public static String getHarryKartRace2() {
-        return "<harryKart>\n" +
-                "    <numberOfLoops>3</numberOfLoops>\n" +
-                "    <startList>\n" +
-                "    </startList>\n" +
-                "    <powerUps>\n" +
-                "        <loop number=\"1\">\n" +
-                "            <lane number=\"1\">1</lane>\n" +
-                "            <lane number=\"2\">1</lane>\n" +
-                "            <lane number=\"3\">0</lane>\n" +
-                "            <lane number=\"4\">-2</lane>\n" +
-                "        </loop>\n" +
-                "        <loop number=\"2\">\n" +
-                "            <lane number=\"1\">1</lane>\n" +
-                "            <lane number=\"2\">-1</lane>\n" +
-                "            <lane number=\"3\">2</lane>\n" +
-                "            <lane number=\"4\">-2</lane>\n" +
-                "        </loop>\n" +
-                "    </powerUps>\n" +
-                "</harryKart>";
+        return """
+                <harryKart>
+                    <numberOfLoops>3</numberOfLoops>
+                    <startList>
+                        <participant>
+                        </participant>
+                    </startList>
+                    <powerUps>
+                        <loop number="1">
+                            <lane number="1">1</lane>
+                            <lane number="2">1</lane>
+                            <lane number="3">0</lane>
+                            <lane number="4">-2</lane>
+                        </loop>
+                        <loop number="2">
+                            <lane number="1">1</lane>
+                            <lane number="2">-1</lane>
+                            <lane number="3">2</lane>
+                            <lane number="4">-2</lane>
+                        </loop>
+                    </powerUps>
+                </harryKart>""";
     }
 
     public static String getHarryKartRace3() {
-        return "<harryKart>\n" +
-                "    <numberOfLoops>4</numberOfLoops>\n" +
-                "    <startList>\n" +
-                "        <participant>\n" +
-                "            <lane>1</lane>\n" +
-                "            <name>TIMETOBELUCKY</name>\n" +
-                "            <baseSpeed>10</baseSpeed>\n" +
-                "        </participant>\n" +
-                "        <participant>\n" +
-                "            <lane>2</lane>\n" +
-                "            <name>CARGO DOOR</name>\n" +
-                "            <baseSpeed>10</baseSpeed>\n" +
-                "        </participant>\n" +
-                "        <participant>\n" +
-                "            <lane>3</lane>\n" +
-                "            <name>HERCULES BOKO</name>\n" +
-                "            <baseSpeed>10</baseSpeed>\n" +
-                "        </participant>\n" +
-                "        <participant>\n" +
-                "            <lane>4</lane>\n" +
-                "            <name>WAIKIKI SILVIO</name>\n" +
-                "            <baseSpeed>10</baseSpeed>\n" +
-                "        </participant>\n" +
-                "    </startList>\n" +
-                "    <powerUps>\n" +
-                "        <loop number=\"1\">\n" +
-                "            <lane number=\"1\">1</lane>\n" +
-                "            <lane number=\"2\">1</lane>\n" +
-                "            <lane number=\"3\">0</lane>\n" +
-                "            <lane number=\"4\">-2</lane>\n" +
-                "        </loop>\n" +
-                "        <loop number=\"2\">\n" +
-                "            <lane number=\"1\">1</lane>\n" +
-                "            <lane number=\"2\">-1</lane>\n" +
-                "            <lane number=\"3\">2</lane>\n" +
-                "            <lane number=\"4\">-2</lane>\n" +
-                "        </loop>\n" +
-                "    </powerUps>\n" +
-                "</harryKart>";
+        return """
+                <harryKart>
+                    <numberOfLoops>4</numberOfLoops>
+                    <startList>
+                        <participant>
+                            <lane>1</lane>
+                            <name>TIMETOBELUCKY</name>
+                            <baseSpeed>10</baseSpeed>
+                        </participant>
+                        <participant>
+                            <lane>2</lane>
+                            <name>CARGO DOOR</name>
+                            <baseSpeed>10</baseSpeed>
+                        </participant>
+                        <participant>
+                            <lane>3</lane>
+                            <name>HERCULES BOKO</name>
+                            <baseSpeed>10</baseSpeed>
+                        </participant>
+                        <participant>
+                            <lane>4</lane>
+                            <name>WAIKIKI SILVIO</name>
+                            <baseSpeed>10</baseSpeed>
+                        </participant>
+                    </startList>
+                    <powerUps>
+                        <loop number="1">
+                            <lane number="1">1</lane>
+                            <lane number="2">1</lane>
+                            <lane number="3">0</lane>
+                            <lane number="4">-2</lane>
+                        </loop>
+                        <loop number="2">
+                            <lane number="1">1</lane>
+                            <lane number="2">-1</lane>
+                            <lane number="3">2</lane>
+                            <lane number="4">-2</lane>
+                        </loop>
+                    </powerUps>
+                </harryKart>""";
     }
 
     public static String getHarryKartRace4() {
-        return "<harryKart>\n" +
-                "    <numberOfLoops>3</numberOfLoops>\n" +
-                "    <startList>\n" +
-                "        <participant>\n" +
-                "            <lane>1</lane>\n" +
-                "            <name>TIMETOBELUCKY</name>\n" +
-                "            <baseSpeed>10</baseSpeed>\n" +
-                "        </participant>\n" +
-                "        <participant>\n" +
-                "            <lane>2</lane>\n" +
-                "            <name>CARGO DOOR</name>\n" +
-                "            <baseSpeed>10</baseSpeed>\n" +
-                "        </participant>\n" +
-                "        <participant>\n" +
-                "            <lane>3</lane>\n" +
-                "            <name>HERCULES BOKO</name>\n" +
-                "            <baseSpeed>10</baseSpeed>\n" +
-                "        </participant>\n" +
-                "    </startList>\n" +
-                "    <powerUps>\n" +
-                "        <loop number=\"1\">\n" +
-                "            <lane number=\"1\">1</lane>\n" +
-                "            <lane number=\"2\">1</lane>\n" +
-                "            <lane number=\"3\">0</lane>\n" +
-                "        </loop>\n" +
-                "        <loop number=\"2\">\n" +
-                "            <lane number=\"1\">1</lane>\n" +
-                "            <lane number=\"2\">-1</lane>\n" +
-                "            <lane number=\"3\">2</lane>\n" +
-                "        </loop>\n" +
-                "    </powerUps>\n" +
-                "</harryKart>";
+        return """
+                <harryKart>
+                    <numberOfLoops>3</numberOfLoops>
+                    <startList>
+                        <participant>
+                            <lane>1</lane>
+                            <name>TIMETOBELUCKY</name>
+                            <baseSpeed>10</baseSpeed>
+                        </participant>
+                        <participant>
+                            <lane>2</lane>
+                            <name>CARGO DOOR</name>
+                            <baseSpeed>10</baseSpeed>
+                        </participant>
+                        <participant>
+                            <lane>3</lane>
+                            <name>HERCULES BOKO</name>
+                            <baseSpeed>10</baseSpeed>
+                        </participant>
+                    </startList>
+                    <powerUps>
+                        <loop number="1">
+                            <lane number="1">1</lane>
+                            <lane number="2">1</lane>
+                            <lane number="3">0</lane>
+                        </loop>
+                        <loop number="2">
+                            <lane number="1">1</lane>
+                            <lane number="2">-1</lane>
+                            <lane number="3">2</lane>
+                        </loop>
+                    </powerUps>
+                </harryKart>""";
     }
 }

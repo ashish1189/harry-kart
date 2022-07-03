@@ -4,18 +4,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.boot.test.context.SpringBootTest;
-import se.atg.service.harrykart.java.rest.exception.EmptyStartListException;
-import se.atg.service.harrykart.java.rest.exception.InsufficientRaceLapData;
-import se.atg.service.harrykart.java.rest.exception.NoRaceParticipantsException;
-import se.atg.service.harrykart.java.rest.exception.NotEnoughParticipants;
-import se.atg.service.harrykart.java.rest.service.impl.HarryKartServiceImpl;
+import se.atg.service.harrykart.java.exception.EmptyStartListException;
+import se.atg.service.harrykart.java.exception.InsufficientRaceLapData;
+import se.atg.service.harrykart.java.exception.NoRaceParticipantsException;
+import se.atg.service.harrykart.java.exception.NotEnoughParticipants;
+import se.atg.service.harrykart.java.service.impl.HarryKartServiceImpl;
 import se.atg.service.harrykart.java.utils.MockDataUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-public class HarryKartServiceImplTest {
+class HarryKartServiceImplTest {
 
     @InjectMocks
     HarryKartServiceImpl harryKartService;
@@ -39,20 +39,16 @@ public class HarryKartServiceImplTest {
         var harryKart = MockDataUtils.getHarryKart().get(1);
         harryKart.setStartList(null);
 
-        assertThrows(EmptyStartListException.class, () -> {
-            harryKartService.playHarryKartRace(harryKart);
-        });
+        assertThrows(EmptyStartListException.class, () -> harryKartService.playHarryKartRace(harryKart));
     }
 
     @Test
     @DisplayName("No or Empty participants list")
     void testNoParticipantsFound() {
         var harryKart = MockDataUtils.getHarryKart().get(1);
-        harryKart.getStartList().setParticipants(null);
+        harryKart.getStartList().setParticipant(null);
 
-        assertThrows(NoRaceParticipantsException.class, () -> {
-            harryKartService.playHarryKartRace(harryKart);
-        });
+        assertThrows(NoRaceParticipantsException.class, () -> harryKartService.playHarryKartRace(harryKart));
     }
 
     @Test
@@ -61,19 +57,15 @@ public class HarryKartServiceImplTest {
         var harryKart = MockDataUtils.getHarryKart().get(1);
         harryKart.setNumberOfLoops(4);
 
-        assertThrows(InsufficientRaceLapData.class, () -> {
-            harryKartService.playHarryKartRace(harryKart);
-        });
+        assertThrows(InsufficientRaceLapData.class, () -> harryKartService.playHarryKartRace(harryKart));
     }
 
     @Test
     @DisplayName("Less than 4 participants for the race")
     void testNotEnoughParticipants() {
         var harryKart = MockDataUtils.getHarryKart().get(1);
-        harryKart.getStartList().getParticipants().remove(3);
+        harryKart.getStartList().getParticipant().remove(3);
 
-        assertThrows(NotEnoughParticipants.class, () -> {
-            harryKartService.playHarryKartRace(harryKart);
-        });
+        assertThrows(NotEnoughParticipants.class, () -> harryKartService.playHarryKartRace(harryKart));
     }
 }

@@ -1,4 +1,4 @@
-package se.atg.service.harrykart.java.rest.data;
+package se.atg.service.harrykart.java.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,15 +1,20 @@
-package se.atg.service.harrykart.java.rest.service.impl;
+package se.atg.service.harrykart.java.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
-import se.atg.service.harrykart.java.rest.data.*;
-import se.atg.service.harrykart.java.rest.exception.EmptyStartListException;
-import se.atg.service.harrykart.java.rest.exception.InsufficientRaceLapData;
-import se.atg.service.harrykart.java.rest.exception.NoRaceParticipantsException;
-import se.atg.service.harrykart.java.rest.exception.NotEnoughParticipants;
-import se.atg.service.harrykart.java.rest.service.HarryKartService;
+import se.atg.service.harrykart.java.data.HarryKart;
+import se.atg.service.harrykart.java.data.HarryKartResponse;
+import se.atg.service.harrykart.java.data.Lane;
+import se.atg.service.harrykart.java.data.Loop;
+import se.atg.service.harrykart.java.data.Participant;
+import se.atg.service.harrykart.java.data.Ranking;
+import se.atg.service.harrykart.java.exception.EmptyStartListException;
+import se.atg.service.harrykart.java.exception.InsufficientRaceLapData;
+import se.atg.service.harrykart.java.exception.NoRaceParticipantsException;
+import se.atg.service.harrykart.java.exception.NotEnoughParticipants;
+import se.atg.service.harrykart.java.service.HarryKartService;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -19,7 +24,7 @@ import java.util.Map;
 import static java.util.Comparator.comparingDouble;
 import static java.util.Map.Entry.comparingByValue;
 import static java.util.stream.Collectors.toMap;
-import static se.atg.service.harrykart.java.rest.utils.Constants.TRACK_LENGTH;
+import static se.atg.service.harrykart.java.utils.Constants.TRACK_LENGTH;
 
 @Slf4j
 @Service
@@ -52,25 +57,25 @@ public class HarryKartServiceImpl implements HarryKartService {
         }
 
         log.debug("Validating participants for the race.");
-        if (null == harryKart.getStartList().getParticipants() || harryKart.getStartList().getParticipants().isEmpty()) {
+        if (null == harryKart.getStartList().getParticipant() || harryKart.getStartList().getParticipant().isEmpty()) {
             throw new NoRaceParticipantsException("No starter participants provided for the race.");
         }
 
         log.debug("Validating if at least 4 participants are running the race");
-        if (harryKart.getStartList().getParticipants().size() < 4) {
+        if (harryKart.getStartList().getParticipant().size() < 4) {
             throw new NotEnoughParticipants("Not enough participants for the race. At least 4 should participate.");
         }
         log.debug("Starter list validation successful");
 
         log.debug("Validating if sufficient Lap information is provided to compuete the results");
-        int count = (harryKart.getStartList().getParticipants().isEmpty() ? 0 : 1) + harryKart.getPowerUps().getLoops().size();
+        int count = (harryKart.getStartList().getParticipant().isEmpty() ? 0 : 1) + harryKart.getPowerUps().getLoop().size();
         if (harryKart.getNumberOfLoops() != count) {
             throw new InsufficientRaceLapData("Insufficient laps information available to play and determine the positions.");
         }
 
-        for (Loop loop : harryKart.getPowerUps().getLoops()) {
-            if (harryKart.getNumberOfLoops() > 1 && (harryKart.getStartList().getParticipants().size() !=
-                    loop.getLanes().size())) {
+        for (Loop loop : harryKart.getPowerUps().getLoop()) {
+            if (harryKart.getNumberOfLoops() > 1 && (harryKart.getStartList().getParticipant().size() !=
+                    loop.getLane().size())) {
                 throw new InsufficientRaceLapData("Insufficient laps information available to play and determine the positions.");
             }
         }
@@ -83,7 +88,7 @@ public class HarryKartServiceImpl implements HarryKartService {
         var standings =
                 harryKart
                         .getStartList()
-                        .getParticipants()
+                        .getParticipant()
                         .stream()
                         .collect(toMap(Participant::getLane, p -> new Participant(p.getLane(), p.getName(),
                                 p.getBaseSpeed(), TRACK_LENGTH / p.getBaseSpeed())));
@@ -104,8 +109,8 @@ public class HarryKartServiceImpl implements HarryKartService {
     }
 
     private void runRaceLoops(HarryKart harryKart, Map<Integer, Participant> standings) {
-        for (Loop loop : harryKart.getPowerUps().getLoops()) {
-            for (Lane lane : loop.getLanes()) {
+        for (Loop loop : harryKart.getPowerUps().getLoop()) {
+            for (Lane lane : loop.getLane()) {
                 var participant = standings.get(lane.getNumber());
                 participant.setBaseSpeed(standings.get(lane.getNumber()).getBaseSpeed() + lane.getPower());
                 participant.setLapTime(participant.getLapTime() + (TRACK_LENGTH / participant.getBaseSpeed()));
